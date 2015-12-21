@@ -1,20 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/MQMatchMatch.Vertical"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
 
-    <ImageView
-        style="@style/MQWrapWrap"
-        android:layout_margin="16dp"
-        android:src="@mipmap/ic_logo" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-    <Button
-        style="@style/DemoTv"
-        android:onClick="conversation"
-        android:text="咨询客服" />
+        <ImageView
+            android:layout_centerInParent="true"
+            style="@style/MQWrapWrap"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_logo" />
+    </RelativeLayout>
 
-    <Button
-        style="@style/DemoTv"
-        android:onClick="developer"
-        android:text="开发者功能" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <Button
+            android:layout_marginBottom="16dp"
+            style="@style/DemoTv"
+            android:onClick="conversation"
+            android:text="咨询客服" />
+
+        <Button
+            style="@style/DemoTv"
+            android:onClick="developer"
+            android:text="开发者功能" />
+    </LinearLayout>
+
 </LinearLayout>

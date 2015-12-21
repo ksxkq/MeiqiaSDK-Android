@@ -1,10 +1,16 @@
 # 美洽移动应用 SDK 3.0 for Android 开发文档
 
 ## ScreenShot
+![美恰SDKDemo](https://s3.cn-north-1.amazonaws.com.cn/pics.meiqia.bucket/7b75f3de0b949201)
 
 ## 集成美洽 SDK
 ### AndroidStudio
-直接依赖 demo 中的 Library 即可
+
+```groovy
+dependencies {
+    compile project(':meiqiasdk')
+}
+```
 
 ### Eclipse
 >TODO
