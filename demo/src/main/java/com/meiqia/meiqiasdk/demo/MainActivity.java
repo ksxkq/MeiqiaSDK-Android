@@ -9,7 +9,6 @@ import android.widget.Toast;
 import com.meiqia.core.MQManager;
 import com.meiqia.core.callback.OnInitCallBackOn;
 import com.meiqia.meiqiasdk.activity.MQConversationActivity;
-import com.meiqia.meiqiasdk.util.MQConfig;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,10 +17,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MQConfig config = new MQConfig(this);
-        //xiaoxin key 67c9f3bcdc08c7cf435d7f2527378fa4
-        //zhufu e6fda248b552a821f6c96146caf2bffe
-        MQManager.init(this, "67c9f3bcdc08c7cf435d7f2527378fa4", new OnInitCallBackOn() {
+        // 替换成自己的key
+        String meiqiaKey = "a71c257c80dfe883d92a64dca323ec20";
+
+        MQManager.init(this, meiqiaKey, new OnInitCallBackOn() {
             @Override
             public void onSuccess() {
                 Toast.makeText(MainActivity.this, "init success", Toast.LENGTH_SHORT).show();

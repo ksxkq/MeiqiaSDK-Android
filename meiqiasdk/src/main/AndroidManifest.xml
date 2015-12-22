@@ -17,6 +17,8 @@
             android:screenOrientation="portrait"
             android:theme="@style/MQTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <service android:name="com.meiqia.core.MeiQiaService" />
     </application>
 
 </manifest>
