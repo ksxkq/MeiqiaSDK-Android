@@ -181,11 +181,11 @@ public class MQUtils {
     private static int getItemType(MQMessage message) {
         // 如果不是机器人，也不是客户时，默认是客服
         int itemType = BaseMessage.TYPE_AGENT;
-        if (TextUtils.equals(MQMessage.TYPE_FROM_ROBOT, message.getFrom_type())) {
+        if (TextUtils.equals(BaseMessage.TYPE_CONTENT_HYBRID, message.getContent_type())) {
+            itemType = BaseMessage.TYPE_HYBRID;
+        }
+        if (TextUtils.equals(BaseMessage.TYPE_CONTENT_BOT, message.getContent_type())) {
             itemType = BaseMessage.TYPE_ROBOT;
-            if (TextUtils.equals(BaseMessage.TYPE_CONTENT_HYBRID, message.getContent_type())) {
-                itemType = BaseMessage.TYPE_HYBRID;
-            }
         } else if (TextUtils.equals(BaseMessage.TYPE_CONTENT_HYBRID, message.getContent_type())) {
             itemType = BaseMessage.TYPE_HYBRID;
         } else if (MQMessage.TYPE_FROM_CLIENT.equals(message.getFrom_type())) {
@@ -199,21 +199,10 @@ public class MQUtils {
     public static BaseMessage parseMQMessageToBaseMessage(MQMessage message) {
         BaseMessage baseMessage;
 
-        if (TextUtils.equals(MQMessage.TYPE_FROM_ROBOT, message.getFrom_type())) {
-            if (TextUtils.equals(message.getContent_type(), BaseMessage.TYPE_CONTENT_HYBRID)) {
-                baseMessage = new HybridMessage();
-                baseMessage.setContent(message.getContent());
-                ((HybridMessage) baseMessage).setExtra(message.getExtra());
-            } else {
-                RobotMessage robotMessage = new RobotMessage();
-                robotMessage.setContentRobot(message.getContent_robot());
-                robotMessage.setContent(message.getContent());
-                robotMessage.setSubType(message.getSub_type());
-                robotMessage.setQuestionId(message.getQuestion_id());
-                robotMessage.setFeedbackUseful(message.getFeedbackUseful());
-                robotMessage.setExtra(message.getExtra());
-                baseMessage = robotMessage;
-            }
+        if (TextUtils.equals(message.getContent_type(), BaseMessage.TYPE_CONTENT_HYBRID)) {
+            baseMessage = new HybridMessage();
+            baseMessage.setContent(message.getContent());
+            ((HybridMessage) baseMessage).setExtra(message.getExtra());
         } else if (TextUtils.equals(message.getContent_type(), BaseMessage.TYPE_CONTENT_HYBRID)) {
             baseMessage = new HybridMessage();
             baseMessage.setContent(message.getContent());
@@ -316,6 +305,15 @@ public class MQUtils {
             baseMessage = new HybridMessage();
             baseMessage.setContent(contentArray.toString());
             ((HybridMessage) baseMessage).setExtra(message.getExtra());
+        } else if (TextUtils.equals(MQMessage.TYPE_FROM_ROBOT, message.getFrom_type())) {
+            RobotMessage robotMessage = new RobotMessage();
+            robotMessage.setContentRobot(message.getContent_robot());
+            robotMessage.setContent(message.getContent());
+            robotMessage.setSubType(message.getSub_type());
+            robotMessage.setQuestionId(message.getQuestion_id());
+            robotMessage.setFeedbackUseful(message.getFeedbackUseful());
+            robotMessage.setExtra(message.getExtra());
+            baseMessage = robotMessage;
         } else {
             // TYPE 设置 unknown,在 adapter 渲染内容
             baseMessage = new TextMessage(message.getContent());
